@@ -14,8 +14,6 @@ steps:
     echo "Building with the following configuration:"
     tail -n 10 conf/local.conf
     bitbake mc::baremetal-helloworld mc:bare:baremetal-helloworld
-    find /home/vsts/sstate-cache/ | grep qemu-native
-    find /home/vsts/sstate-cache/ | grep qemu-system-native
   condition: succeededOrFailed()
   displayName: 'Build baremetal images'
 
