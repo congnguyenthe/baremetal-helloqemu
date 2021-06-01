@@ -14,13 +14,27 @@ steps:
     echo "Building with the following configuration:"
     tail -n 10 conf/local.conf
     bitbake mc::baremetal-helloworld mc:bare:baremetal-helloworld
+    if [ -e ~/poky/build/tmp/work/x86_64-linux/qemu-native/6.0.0-r0/temp/log.do_populate_sysroot_setscene ]; then
+        echo "File found in tmp"
+        ls -l ~/sstate-cache/universal/d1/69/sstate:qemu-native:x86_64-linux:6.0.0:r0:x86_64:3:d169e19ab5c1d5c97951a84294e6cc7e11154576f5256b5cc0a1ce87ed425ddc_populate_sysroot.tgz
+        echo "md5sum"
+        md5sum ~/sstate-cache/universal/d1/69/sstate:qemu-native:x86_64-linux:6.0.0:r0:x86_64:3:d169e19ab5c1d5c97951a84294e6cc7e11154576f5256b5cc0a1ce87ed425ddc_populate_sysroot.tgz
+        cat ~/poky/build/tmp/work/x86_64-linux/qemu-native/6.0.0-r0/temp/log.do_populate_sysroot_setscene
+    fi
+    if [ -e ~/poky/build/tmp-${MACHINE}-baremetal/work/x86_64-linux/qemu-native/6.0.0-r0/temp/log.do_populate_sysroot_setscene ]; then
+        echo "File found in tmp-qemu"
+        ls -l ~/sstate-cache/universal/d1/69/sstate:qemu-native:x86_64-linux:6.0.0:r0:x86_64:3:d169e19ab5c1d5c97951a84294e6cc7e11154576f5256b5cc0a1ce87ed425ddc_populate_sysroot.tgz
+        echo "md5sum"
+        md5sum ~/sstate-cache/universal/d1/69/sstate:qemu-native:x86_64-linux:6.0.0:r0:x86_64:3:d169e19ab5c1d5c97951a84294e6cc7e11154576f5256b5cc0a1ce87ed425ddc_populate_sysroot.tgz
+        cat ~/poky/build/tmp-${MACHINE}-baremetal/work/x86_64-linux/qemu-native/6.0.0-r0/temp/log.do_populate_sysroot_setscene
+    fi
   condition: succeededOrFailed()
   displayName: 'Build baremetal images'
 
 - bash: |
     source azp-scripts/azp-helpers.sh
     check_freespace
-    SASW_TOKEN="$(SASW_TOKEN)" sync_sstate
+    # SASW_TOKEN="$(SASW_TOKEN)" sync_sstate
   condition: succeededOrFailed()
   displayName: 'Sync sstate'
 
