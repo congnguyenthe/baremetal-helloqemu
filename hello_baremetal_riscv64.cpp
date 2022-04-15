@@ -13,7 +13,7 @@ void print_uart0(const char *str) {
 
 /* Entry function from startup.s */
 extern "C" { 
-  void c_entry() {
+  void main() {
   print_uart0("Hello OpenEmbedded on RISC-V 64!\n");
 }
 }
