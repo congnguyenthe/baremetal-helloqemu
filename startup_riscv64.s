@@ -16,7 +16,7 @@ _start:
     csrr a0, mhartid
     bnez a0, park
 
-    j main
+    j c_entry
 
 park:
     wfi
