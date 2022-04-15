@@ -32,7 +32,7 @@ assemble: builddir
 
 # Compile source but dont link
 compile:
-	${CXX} ${CXXFLAGS} -static -static-libstdc++ -static-libgcc ${LDFLAGS} -c $(filter hello%,${sources}).cpp -o $(call contains,hello,${objs})
+	${CXX} ${CXXFLAGS} -mcmodel=medany -static -static-libstdc++ -static-libgcc ${LDFLAGS} -c $(filter hello%,${sources}).cpp -o $(call contains,hello,${objs})
 
 builddir:
 	mkdir -p ${BUILDDIR}
