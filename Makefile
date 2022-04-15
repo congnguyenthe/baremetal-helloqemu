@@ -32,8 +32,7 @@ assemble: builddir
 
 # Compile source but dont link
 compile:
-	#${CC} ${CFLAGS} ${LDFLAGS} -c $(filter hello%,${sources}).c -o $(call contains,hello,${objs})
-	${CXX} ${CXXFLAGS} ${LDFLAGS} -c $(filter hello%,${sources}).cpp -o $(call contains,hello,${objs})
+	${CXX} ${CXXFLAGS} -static -static-libstdc++ -static-libgcc ${LDFLAGS} -c $(filter hello%,${sources}).cpp -o $(call contains,hello,${objs})
 
 builddir:
 	mkdir -p ${BUILDDIR}
