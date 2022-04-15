@@ -1,13 +1,19 @@
-/* Copyright 2019 SiFive, Inc */
-/* SPDX-License-Identifier: Apache-2.0 */
+/* VIRT_UART0 base address is 0x10000000 according to QEMU source code*/
+#define VIRT_UART0 0x10000000
 
-#include <iostream>
-#include <stdio.h>
+volatile unsigned int * const UART0DR = (unsigned int *)VIRT_UART0;
 
-using namespace std; 
+/* Until we reach to the end of the string, put each char on UART0 */
+void print_uart0(const char *str) {
+  while(*str != '\0') {
+    *UART0DR = (unsigned int)(*str);
+    str++;
+  }
+}
 
-int main() { 
-  cout << "Hello C++ !\n";
-//  printf("Hello C++ from printf\n");
- return 0; 
+/* Entry function from startup.s */
+extern "C" { 
+  void c_entry() {
+  print_uart0("Hello OpenEmbedded on RISC-V 64!\n");
+}
 }
